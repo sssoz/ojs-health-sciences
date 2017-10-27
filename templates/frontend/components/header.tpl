@@ -21,25 +21,8 @@
 <!DOCTYPE html>
 <html lang="{$currentLocale|replace:"_":"-"}" xml:lang="{$currentLocale|replace:"_":"-"}">
 {if !$pageTitleTranslated}{translate|assign:"pageTitleTranslated" key=$pageTitle}{/if}
-<link href="https://fonts.googleapis.com/css?family=Droid+Serif:200,200i,400,400i|Fira+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
-{include file="core:frontend/components/headerHead.tpl"}
+{include file="frontend/components/headerHead.tpl"}
 <body>
-	<script type="text/javascript">
-		// Initialise JS handler.
-		$(function() {ldelim}
-			$('body').pkpHandler(
-				'$.pkp.controllers.SiteHandler',
-				{ldelim}
-					{if $isUserLoggedIn}
-						inlineHelpState: {$initialHelpState},
-					{/if}
-					toggleHelpUrl: {url|json_encode page="user" op="toggleHelp" escape=false},
-					toggleHelpOnText: {$toggleHelpOnText|json_encode},
-					toggleHelpOffText: {$toggleHelpOffText|json_encode},
-					{include file="core:controllers/notification/notificationOptions.tpl"}
-				{rdelim});
-		{rdelim});
-	</script>
 	<div>
 
 		{* Header *}
@@ -87,12 +70,8 @@
           </button>
 
           <div class="collapse navbar-collapse justify-content-md-center" id="main-navbar">
-            <ul class="navbar-nav">
-              {* Primary navigation menu for current application *}
-              {include file="frontend/components/primaryNavMenu.tpl"}
-              {* Login / register menu *}
-              {include file="frontend/components/loginMenu.tpl"}
-            </ul>
+						{load_menu name="primary" ulClass="navbar-nav" liClass="nav-item"}
+						{load_menu name="user" ulClass="navbar-nav" liClass="nav-item"}
           </div>
         </nav>
 
@@ -103,12 +82,5 @@
 			{assign var=hasLeftSidebar value=0}
 		{/if}
 		<div>
-
-			<script type="text/javascript">
-				// Attach the JS page handler to the main content wrapper.
-				$(function() {ldelim}
-					$('div.pkp_structure_main').pkpHandler('$.pkp.controllers.PageHandler');
-				{rdelim});
-			</script>
 
 			<div>
